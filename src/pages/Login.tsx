@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { User, Lock, Eye, EyeOff } from "lucide-react";
+import { User, Lock, Eye, EyeOff, FileText } from "lucide-react";
 import useAuthStore from "../store/authStore";
 import toast from "react-hot-toast";
 
@@ -97,7 +97,7 @@ const Login = () => {
             <div className="flex justify-center mb-4">
               <div className="relative">
                 <div className="h-40 w-40 flex items-center justify-center rounded-full bg-white shadow-md overflow-hidden transform transition-all duration-300 hover:scale-105">
-                  <img src="/SBH logo 1.png" alt="Logo" className="h-full w-full object-contain" />
+                  <FileText className="h-20 w-20 text-indigo-600" />
                 </div>
               </div>
             </div>
