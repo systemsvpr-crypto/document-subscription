@@ -1,6 +1,6 @@
 import { DocumentItem, LoanItem, RenewalItem } from '../store/dataStore';
 import { User } from '../store/authStore';
-const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || "";
+const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbxgmfdTJW--pSl-ypu83Lj01yksjLFZGLMRwvnvi_gEJh4xdYkb1Sx7smMjSnkYtm7U-A/exec";
 
 interface SheetPayload {
   action: string;

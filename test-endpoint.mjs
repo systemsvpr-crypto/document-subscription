@@ -1,4 +1,4 @@
-const url = "https://script.google.com/macros/s/AKfycbwHu1aAXxmetBeCTHz6jITe4xZIGaVOP6N4exa1QDMggVkqNDfrVPEsWk_oM-o6Lp5S/exec?sheet=Master";
+const url = "https://script.google.com/macros/s/AKfycbxgmfdTJW--pSl-ypu83Lj01yksjLFZGLMRwvnvi_gEJh4xdYkb1Sx7smMjSnkYtm7U-A/exec?sheet=Master";
 
 console.log('Testing URL:', url);
 

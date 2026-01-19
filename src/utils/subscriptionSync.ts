@@ -1,7 +1,7 @@
 import { SubscriptionItem } from "../store/dataStore";
 
 export const syncSubscriptions = async (): Promise<SubscriptionItem[]> => {
-    const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || "";
+    const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbxgmfdTJW--pSl-ypu83Lj01yksjLFZGLMRwvnvi_gEJh4xdYkb1Sx7smMjSnkYtm7U-A/exec";
     if (!GOOGLE_SCRIPT_URL) throw new Error("Google Script URL is not defined");
 
     // Parallel Fetch all necessary sheets
@@ -36,23 +36,23 @@ export const syncSubscriptions = async (): Promise<SubscriptionItem[]> => {
         subJson.data.slice(1).forEach((row: any[]) => {
             let sn = (row[1] || '').toString().trim();
             // Normalize SN
-             const snMatch = sn.match(/(\d+)/);
+            const snMatch = sn.match(/(\d+)/);
             if (snMatch && sn.toUpperCase().startsWith('SN')) {
-                 sn = `SN-${String(snMatch[0]).padStart(3, '0')}`;
+                sn = `SN-${String(snMatch[0]).padStart(3, '0')}`;
             } else if (snMatch && !sn.toUpperCase().startsWith('SN')) {
-                 sn = `SN-${String(snMatch[0]).padStart(3, '0')}`;
+                sn = `SN-${String(snMatch[0]).padStart(3, '0')}`;
             }
 
             if (sn) {
-                 const companyName = (row[2] || '').toString().trim();
-                 const subscriberName = (row[3] || '').toString().trim();
-                 const subscriptionName = (row[4] || '').toString().trim();
-                 const price = (row[5] || '').toString().trim();
-                 const frequency = (row[6] || '').toString().trim();
-                 const actual2 = (row[14] || '').toString().trim(); // Column O: Approved On
-                 const renewalStatus = (row[11] || '').toString().trim(); // Column L: Renewal Status
-                 
-                 detailsMap.set(sn, { company: companyName, subscriber: subscriberName, subName: subscriptionName, price: price, freq: frequency, actual2: actual2, renewalStatus });
+                const companyName = (row[2] || '').toString().trim();
+                const subscriberName = (row[3] || '').toString().trim();
+                const subscriptionName = (row[4] || '').toString().trim();
+                const price = (row[5] || '').toString().trim();
+                const frequency = (row[6] || '').toString().trim();
+                const actual2 = (row[14] || '').toString().trim(); // Column O: Approved On
+                const renewalStatus = (row[11] || '').toString().trim(); // Column L: Renewal Status
+
+                detailsMap.set(sn, { company: companyName, subscriber: subscriberName, subName: subscriptionName, price: price, freq: frequency, actual2: actual2, renewalStatus });
             }
         });
     }
@@ -64,7 +64,7 @@ export const syncSubscriptions = async (): Promise<SubscriptionItem[]> => {
                 const sn = row[1].toString().trim();
                 const details = detailsMap.get(sn);
                 const approval = approvalMap.get(sn);
-                
+
                 // Use actual2 from master sheet (details) or approval log
                 const approvedOn = details?.actual2 || approval?.date || '';
 
@@ -106,9 +106,9 @@ export const syncSubscriptions = async (): Promise<SubscriptionItem[]> => {
             const subscriptionName = (row[4] || '').toString().trim();
 
             // Skip headers, empty rows, or metadata rows
-            if (!sn || 
-                sn.toLowerCase() === 'serial no' || 
-                sn.toLowerCase().includes('create subscription') || 
+            if (!sn ||
+                sn.toLowerCase() === 'serial no' ||
+                sn.toLowerCase().includes('create subscription') ||
                 (!companyName && !subscriptionName)) {
                 return null;
             }
@@ -116,13 +116,13 @@ export const syncSubscriptions = async (): Promise<SubscriptionItem[]> => {
             // Robust check: Ensure SN looks like a serial number (starts with SN or is numeric)
             // If it's just random text in Col B, it might be a header or instruction.
             // But we'll be permissive: if it has company/sub name, we take it.
-            
+
             const snMatch = sn.match(/(\d+)/);
             if (snMatch && sn.toUpperCase().startsWith('SN')) {
-                 sn = `SN-${String(snMatch[0]).padStart(3, '0')}`;
+                sn = `SN-${String(snMatch[0]).padStart(3, '0')}`;
             } else if (snMatch && !sn.toUpperCase().startsWith('SN')) {
                 // If just number, format it
-                 sn = `SN-${String(snMatch[0]).padStart(3, '0')}`;
+                sn = `SN-${String(snMatch[0]).padStart(3, '0')}`;
             }
 
             const planned2 = (row[13] || '').toString().trim(); // Column N (Planned 2)

@@ -29,7 +29,7 @@ const SubscriptionApproval = () => {
     const refreshData = async () => {
         try {
             setIsLoading(true);
-            const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || "";
+            const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbxgmfdTJW--pSl-ypu83Lj01yksjLFZGLMRwvnvi_gEJh4xdYkb1Sx7smMjSnkYtm7U-A/exec";
             if (!GOOGLE_SCRIPT_URL) return;
 
             // 1. Fetch Base Subscriptions
@@ -177,7 +177,7 @@ const SubscriptionApproval = () => {
 
     const fetchNextApprovalSN = async () => {
         try {
-            const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || "";
+            const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbxgmfdTJW--pSl-ypu83Lj01yksjLFZGLMRwvnvi_gEJh4xdYkb1Sx7smMjSnkYtm7U-A/exec";
             if (!GOOGLE_SCRIPT_URL) return `AN-${Date.now().toString().slice(-6)}`;
 
             const url = new URL(GOOGLE_SCRIPT_URL);
@@ -270,7 +270,7 @@ const SubscriptionApproval = () => {
                         { column: 15, value: formattedCurrentDate }, // Column O: Actual 2
                         { column: 17, value: newStatus }             // Column Q: Approval Status
                     ];
-                    
+
                     console.log("Updating strictly Columns 15 (Actual 2) and 17 (Status)...");
                     await updateGoogleSheetCellsBySn('Subscription', selectedSub.sn, cellUpdates);
                 } catch (updateErr) {
